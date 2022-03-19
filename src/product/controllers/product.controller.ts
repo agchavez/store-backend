@@ -10,19 +10,21 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { IGetPoducts, IProduct } from 'src/interface/product.interface';
-import { ProductService } from '../../services/product/product.service';
+import { IGetPoducts, IProduct } from 'src/product/interface/product.interface';
+import { ParseCodePipe } from '../common/parse-code.pipe';
+import { CreateProductDto } from '../../product/dtos/products.dtos';
+import { ProductService } from '../services/product.service';
 
 @Controller('product')
 export class ProductController {
   constructor(private ProductService: ProductService) {}
-  @Get('/detail')
+  @Get('/detail/')
   getProductDetail(): string {
     return 'Detalle del producto';
   }
 
   @Get('/:id')
-  getProductById(@Param('id', ParseIntPipe) id: number): IProduct {
+  getProductById(@Param('id', ParseCodePipe) id: number): IProduct {
     const product: IProduct = this.ProductService.getProductById(id);
     return product;
   }
@@ -39,7 +41,7 @@ export class ProductController {
   }
 
   @Post('/')
-  createProduct(@Body() body: any): IProduct {
+  createProduct(@Body() body: CreateProductDto): IProduct {
     return this.ProductService.createProduct(body);
   }
 
