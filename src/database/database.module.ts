@@ -22,7 +22,7 @@ const API_KEY = '54131354';
           username: configService.get('DB_USER'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_NAME'),
-          synchronize: true, // 👈 new attr
+          synchronize: false, // 👈 new attr
           autoLoadEntities: true, // 👈 new attr
         };
       },

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Category } from '../entities/category.entity';
 import { CategoryDtos } from '../dtos/category.dtos';
 import { ICategoriesResp, IDeleteResp } from '../interface/category.iterface';
+import { Product } from '../entities/product.entity';
 
 @Injectable()
 export class CategorieService {
@@ -33,6 +34,18 @@ export class CategorieService {
     if (!category)
       throw new NotFoundException(`Category with id ${id} not found`);
     return category;
+  }
+
+  async getProductsByCategoryId(id: number): Promise<Product[]> {
+    const category = await this.categoryRespository.findOne({
+      where: { id },
+      relations: ['products'],
+    });
+
+    if (!category)
+      throw new NotFoundException(`Category with id ${id} not found`);
+
+    return category.products;
   }
 
   async createCategory(category: CategoryDtos): Promise<Category> {

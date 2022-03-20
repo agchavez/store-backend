@@ -33,6 +33,11 @@ export class CategoryController {
     return await this.categoryService.getCategoryById(id);
   }
 
+  @Get('/products/:id')
+  async getProductsByCategoryId(@Param('id', ParseIntPipe) id: number) {
+    return await this.categoryService.getProductsByCategoryId(id);
+  }
+
   @Post('/')
   async createCategory(@Body() category: CategoryDtos): Promise<CategoryDtos> {
     return await this.categoryService.createCategory(category);

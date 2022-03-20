@@ -36,6 +36,6 @@ export class Product {
   })
   name2: string;
 
-  @ManyToOne((type) => Category, (category) => category.products)
+  @ManyToOne(() => Category, (category) => category.products)
   category: number;
 }
