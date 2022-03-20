@@ -23,40 +23,37 @@ export class ProductController {
     return 'Detalle del producto';
   }
 
-  @Get('/:id')
-  getProductById(@Param('id', ParseCodePipe) id: number): IProduct {
-    const product: IProduct = this.ProductService.getProductById(id);
-    return product;
-  }
+  // @Get('/:id')
+  // getProductById(@Param('id', ParseIntPipe) id: number): IProduct {
+  //   const product: IProduct = this.ProductService.getProductById(id);
+  //   return product;
+  // }
   @Get('/')
-  getProducts(
-    @Query('limit') limit = 10,
-    @Query('offset') offset = 0,
-  ): IGetPoducts {
+  async getProducts(@Query('limit') limit = 10, @Query('offset') offset = 0) {
     return {
       limit,
       offset,
-      products: this.ProductService.getProducts(),
+      products: await this.ProductService.getProducts(),
     };
   }
 
   @Post('/')
-  createProduct(@Body() body: CreateProductDto): IProduct {
-    return this.ProductService.createProduct(body);
+  async createProduct(@Body() body: CreateProductDto) {
+    return await this.ProductService.createProduct(body);
   }
 
-  // Delete product by id
-  @Delete('/:id')
-  deleteProduct(@Param('id') id: string): string {
-    return 'Producto --> ' + id;
-  }
+  // // Delete product by id
+  // @Delete('/:id')
+  // deleteProduct(@Param('id') id: string): string {
+  //   return 'Producto --> ' + id;
+  // }
 
-  // Update product by id
-  @Put('/:id')
-  updateProduct(@Param('id') id: string, @Body() body: any): string {
-    return {
-      ...body,
-      msj: 'Producto --> ' + id,
-    };
-  }
+  // // Update product by id
+  // @Put('/:id')
+  // updateProduct(@Param('id') id: string, @Body() body: any): string {
+  //   return {
+  //     ...body,
+  //     msj: 'Producto --> ' + id,
+  //   };
+  // }
 }

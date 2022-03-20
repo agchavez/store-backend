@@ -10,10 +10,10 @@ export class CreateProductDto {
   readonly name: string;
 
   @IsString({
-    message: 'El precio del producto debe ser una cadena de texto',
+    message: 'La descripcion del producto debe ser una cadena de texto',
   })
   @IsNotEmpty({
-    message: 'El precio del producto no puede estar vacío',
+    message: 'La descripcion del producto no puede estar vacío',
   })
   readonly description: string;
 
@@ -23,11 +23,17 @@ export class CreateProductDto {
   })
   readonly price: number;
 
+  @IsNumber()
+  @IsNotEmpty({
+    message: 'La categoria del producto no puede estar vacío',
+  })
+  readonly category: number;
+
   @IsString({
     message: 'El nombre del producto debe ser una cadena de texto',
   })
   @IsNotEmpty({
-    message: 'El stock del producto no puede estar vacío',
+    message: 'El nombre del producto no puede estar vacío',
   })
-  readonly category: string;
+  readonly image: string;
 }
