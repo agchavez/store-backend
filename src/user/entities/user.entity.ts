@@ -1,5 +1,10 @@
+import { Exclude } from 'class-transformer';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
+const transformToLowerCase = {
+  to: (value: string) => value.toLowerCase(),
+  from: (value: string) => value.toUpperCase(),
+};
 @Entity({
   name: 'app_user',
 })
@@ -15,6 +20,8 @@ export class User {
   })
   username: string;
 
+  //Campo de solo lectura
+  @Exclude()
   @Column({
     type: 'varchar',
     length: 255,
@@ -31,12 +38,14 @@ export class User {
   @Column({
     type: 'varchar',
     length: 50,
+    transformer: transformToLowerCase,
   })
   firstName: string;
 
   @Column({
     type: 'varchar',
     length: 50,
+    transformer: transformToLowerCase,
   })
   lastName: string;
 }
